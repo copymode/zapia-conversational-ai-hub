@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useLocation, NavLink } from 'react-router-dom';
 import { 
@@ -23,7 +22,7 @@ import { cn } from '@/lib/utils';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { name: 'Meus Números', href: '/numbers', icon: Phone },
+  { name: 'Meu WhatsApp', href: '/numbers', icon: Phone },
   { name: 'Agentes de IA', href: '/ai-agents', icon: Bot },
   { name: 'Chatbots', href: '/chatbots', icon: MessageSquare },
   { name: 'Mensagens Rápidas', href: '/quick-messages', icon: Zap },
