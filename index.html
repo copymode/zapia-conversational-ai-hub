@@ -1,24 +1,58 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>zapia-conversational-ai-hub</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+    <title>Zapia - Agentes de IA para WhatsApp</title>
+    <meta name="description" content="Conecte Agentes de IA no seu WhatsApp de forma profissional. Automatize atendimentos, crie chatbots inteligentes e gerencie contatos." />
+    <meta name="author" content="Zapia" />
+    <meta name="keywords" content="WhatsApp, IA, Chatbot, Automação, Atendimento, CRM" />
 
-    <meta property="og:title" content="zapia-conversational-ai-hub" />
-    <meta property="og:description" content="Lovable Generated Project" />
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#8b5cf6" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Zapia" />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:url" content="https://zapia.app/" />
+    <meta property="og:title" content="Zapia - Agentes de IA para WhatsApp" />
+    <meta property="og:description" content="Conecte Agentes de IA no seu WhatsApp de forma profissional" />
+    <meta property="og:image" content="https://zapia.app/og-image.png" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://zapia.app/" />
+    <meta property="twitter:title" content="Zapia - Agentes de IA para WhatsApp" />
+    <meta property="twitter:description" content="Conecte Agentes de IA no seu WhatsApp de forma profissional" />
+    <meta property="twitter:image" content="https://zapia.app/twitter-image.png" />
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
