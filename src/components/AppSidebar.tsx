@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useLocation, NavLink } from 'react-router-dom';
 import { 
@@ -17,6 +18,12 @@ import {
   X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { useTheme } from './ThemeProvider';
 import { cn } from '@/lib/utils';
 
@@ -50,7 +57,7 @@ export function AppSidebar() {
   };
 
   return (
-    <>
+    <TooltipProvider>
       {/* Mobile Menu Button */}
       <Button
         onClick={toggleMobileMenu}
@@ -103,7 +110,8 @@ export function AppSidebar() {
           <nav className="flex-1 space-y-1 p-2 overflow-y-auto">
             {navigation.map((item) => {
               const isActive = location.pathname === item.href;
-              return (
+              
+              const navLink = (
                 <NavLink
                   key={item.name}
                   to={item.href}
@@ -122,32 +130,65 @@ export function AppSidebar() {
                   )}
                 </NavLink>
               );
+
+              // Se estiver colapsado no desktop, adiciona tooltip
+              if (isCollapsed) {
+                return (
+                  <Tooltip key={item.name}>
+                    <TooltipTrigger asChild>
+                      {navLink}
+                    </TooltipTrigger>
+                    <TooltipContent side="right" className="hidden lg:block">
+                      {item.name}
+                    </TooltipContent>
+                  </Tooltip>
+                );
+              }
+
+              return navLink;
             })}
           </nav>
 
           {/* Footer */}
           <div className="p-4 border-t border-border">
-            <Button
-              onClick={toggleTheme}
-              variant="ghost"
-              size={isCollapsed ? "icon" : "sm"}
-              className={cn(
-                "w-full",
-                isCollapsed ? "justify-center" : "justify-start"
-              )}
-            >
-              {theme === 'dark' ? (
-                <Sun className={cn("h-4 w-4", !isCollapsed && "mr-2")} />
-              ) : (
-                <Moon className={cn("h-4 w-4", !isCollapsed && "mr-2")} />
-              )}
-              {!isCollapsed && (
+            {isCollapsed ? (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    onClick={toggleTheme}
+                    variant="ghost"
+                    size="icon"
+                    className="w-full justify-center"
+                  >
+                    {theme === 'dark' ? (
+                      <Sun className="h-4 w-4" />
+                    ) : (
+                      <Moon className="h-4 w-4" />
+                    )}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="right" className="hidden lg:block">
+                  {theme === 'dark' ? 'Modo Claro' : 'Modo Escuro'}
+                </TooltipContent>
+              </Tooltip>
+            ) : (
+              <Button
+                onClick={toggleTheme}
+                variant="ghost"
+                size="sm"
+                className="w-full justify-start"
+              >
+                {theme === 'dark' ? (
+                  <Sun className="h-4 w-4 mr-2" />
+                ) : (
+                  <Moon className="h-4 w-4 mr-2" />
+                )}
                 <span>{theme === 'dark' ? 'Modo Claro' : 'Modo Escuro'}</span>
-              )}
-            </Button>
+              </Button>
+            )}
           </div>
         </div>
       </aside>
-    </>
+    </TooltipProvider>
   );
 }
